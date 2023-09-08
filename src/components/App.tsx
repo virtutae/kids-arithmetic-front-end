@@ -1,10 +1,55 @@
-import { MyComponent } from "./MyComponent";
 import "./App.css";
+import { useState } from "react";
 
 function App() {
+    const [question, setQuestion] = useState("");
+    const [answer, setAnswer] = useState("");
+    const [result, setResult] = useState("Solve It");
+
+    const generateQuestion = () => {
+        const num1 = Math.floor(Math.random() * 10);
+        const num2 = Math.floor(Math.random() * 10);
+
+        setQuestion(`${num1} + ${num2}`);
+        setAnswer((num1 + num2).toString());
+    };
+
+    const handleSubmit = (e: React.FormEvent) => {
+        e.preventDefault();
+        const submittedAnswer = (
+            e.currentTarget.querySelector('[name="answer"]') as HTMLInputElement
+        ).value;
+        if (submittedAnswer === answer) {
+            setResult("Correct Answer!");
+        } else {
+            setResult(`Oops! Correct answer is ${answer}`);
+        }
+    };
+
+    const handleNext = () => {
+        setResult("Solve It");
+        generateQuestion();
+    };
+
     return (
-        <div className="App">
-            <MyComponent />
+        <div className="quiz">
+            <span className="result">{result}</span>
+            <h1>
+                <span className="quest">{question}</span>
+                <span> = ?</span>
+            </h1>
+            <form onSubmit={handleSubmit}>
+                <input
+                    type="number"
+                    name="answer"
+                    placeholder="your answer here"
+                    required
+                />
+                <button type="submit">Submit</button>
+            </form>
+            <button className="next" onClick={handleNext}>
+                Next question
+            </button>
         </div>
     );
 }
