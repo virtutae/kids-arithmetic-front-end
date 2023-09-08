@@ -1,3 +1,15 @@
 html {
     background: #f8f8f8;
 }
+
+.footer {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    text-align: center;
+    background-color: #f0f0f0;
+    /* Optional background color */
+    padding: 10px;
+    /* Optional padding for better readability */
+}
