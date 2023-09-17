@@ -1,10 +1,27 @@
+import axios from "axios";
 import "./App.css";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 function App() {
     const [question, setQuestion] = useState("");
     const [answer, setAnswer] = useState("");
     const [result, setResult] = useState("Solve It");
+
+    useEffect(() => {
+        async function fetchTimeStamp() {
+            try {
+                const response = await axios.get(
+                    "https://kids-arithmetic-app.onrender.com/"
+                );
+                const lastLog = response.data[0].time_stamp;
+                console.log(lastLog);
+            } catch (error) {
+                console.error("Error while using useEffect:", error);
+            }
+        }
+        fetchTimeStamp();
+        generateQuestion();
+    }, []);
 
     const generateQuestion = () => {
         const num1 = Math.floor(Math.random() * 10);
