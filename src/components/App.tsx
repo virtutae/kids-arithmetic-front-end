@@ -6,6 +6,7 @@ function App() {
     const [question, setQuestion] = useState("");
     const [answer, setAnswer] = useState("");
     const [result, setResult] = useState("Solve It");
+    const [lastLog, _setLastLog] = useState(null);
 
     useEffect(() => {
         async function fetchTimeStamp() {
@@ -14,14 +15,20 @@ function App() {
                     "https://kids-arithmetic-app.onrender.com/"
                 );
                 const lastLog = response.data[0].time_stamp;
-                console.log(lastLog);
+                console.log(lastLog)
+               
             } catch (error) {
                 console.error("Error while using useEffect:", error);
             }
         }
         fetchTimeStamp();
         generateQuestion();
+        checkStreak();
     }, []);
+
+    function checkStreak(){
+        console.log(lastLog)
+     }
 
     const generateQuestion = () => {
         const num1 = Math.floor(Math.random() * 10);
